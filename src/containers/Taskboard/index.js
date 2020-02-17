@@ -40,13 +40,17 @@ class TaskBoard extends Component {
             },
         });
     };
-
-    componentDidMount() {
+    //
+    // componentDidMount() {
+    //     const {TaskActions} = this.props;
+    //     const {getListTask} = TaskActions;
+    //     getListTask();
+    // }
+    loadData = () => {
         const {TaskActions} = this.props;
         const {getListTask} = TaskActions;
         getListTask();
-    }
-
+    };
     render() {
 
         const {classes,listTasks} = this.props;
@@ -66,6 +70,17 @@ class TaskBoard extends Component {
                 <Button className={classes.btnAddTask} variant="contained" color="primary" size="small"
                         onClick={this.onOpenFormAdd}>
                     <AddIcon className={classes.icon}/>Add new task
+                </Button>
+                <Button className={classes.btnAddTask}
+                        variant="contained"
+                        color="primary"
+                        size="small"
+                        style={{
+                            marginLeft : 20
+                        }}
+                        onClick={this.loadData}
+                >
+                    <AddIcon className={classes.icon}/>Load data
                 </Button>
 
                 {/*/*/}

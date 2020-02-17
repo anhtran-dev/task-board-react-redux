@@ -1,14 +1,22 @@
-import {getAllRequest} from "../apis/tasks";
-import {GET_ALL} from "../constants/tasks/actionTypes";
+
+import {GET_ALL, GET_ALL_FAIL, GET_ALL_SUCCESS} from "../constants/tasks/actionTypes";
 
 export const getListTask = () => {
-    let listTasks =  getAllRequest()
-        .then(res => res.data)
-        .catch(error => {
-            console.log(error);
-    });
     return  {
         type : GET_ALL,
-        payload : listTasks
     };
+};
+
+export const getListTaskSuccess = (data) => {
+    return {
+        type : GET_ALL_SUCCESS,
+        payload : data
+    }
+};
+
+export  const getListTaskFail = (err) => {
+    return {
+        type : GET_ALL_FAIL,
+        payload : err
+    }
 };
