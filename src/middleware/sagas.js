@@ -10,7 +10,6 @@ function* watchFetchListTasksAction() {
         const res = yield call(getAllRequest);
 
         if(res.status === STATUS_CODE.SUCCESS){
-
             yield put(getListTaskSuccess(res.data));
         }
         else{
