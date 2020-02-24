@@ -42,11 +42,22 @@ const styles = theme => ({
         textAlign : 'right',
         width : "100%"
     },
+    wpFormTask : {
+        // background : '#95a5a6'
+    },
+    headerForm : {
+        background : '#00cec9',
+        height : "40px"
+    },
     titleForm : {
         textTransform : 'uppercase',
-        fontSize : 13,
-        fontWeight: 700
-    }
+        fontSize : 14,
+        fontWeight: 700,
+        color : "#d35400",
+
+    },
+
+
 
 
 

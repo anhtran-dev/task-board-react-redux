@@ -1,4 +1,4 @@
-import {GET_ALL, GET_ALL_FAIL, GET_ALL_SUCCESS} from "../constants/tasks/actionTypes";
+import {FILTER_TASK, FILTER_TASK_SUCCESS, GET_ALL, GET_ALL_FAIL, GET_ALL_SUCCESS} from "../constants/tasks/actionTypes";
 
 let initialState = [];
 
@@ -17,6 +17,15 @@ const tasks = (state = initialState, action) => {
             console.log(action);
             return [...state];
         }
+        case FILTER_TASK : {
+            return [...state];
+        }
+        case FILTER_TASK_SUCCESS : {
+            console.log(action);
+            state = action.payload;
+            return [...state];
+        }
+
         default :
             return [...state];
     }
