@@ -1,6 +1,6 @@
 
 import {
-    ADD_TASK, ADD_TASK_FAIL, ADD_TASK_SUCCESS,
+    ADD_TASK, ADD_TASK_FAIL, ADD_TASK_SUCCESS, DELETE_TASK,
     FILTER_TASK,
     FILTER_TASK_SUCCESS,
     GET_ALL,
@@ -76,6 +76,15 @@ export const addTaskFail = (error) => {
 export const setTaskEdit = (task) => {
     return {
         type : SET_TASK_EDIT,
+        payload : {
+            task
+        }
+    }
+};
+
+export const deleteTask = (task) => {
+    return {
+        type : DELETE_TASK,
         payload : {
             task
         }

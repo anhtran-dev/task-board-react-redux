@@ -1,5 +1,5 @@
 import {
-    ADD_TASK, ADD_TASK_FAIL, ADD_TASK_SUCCESS,
+    ADD_TASK, ADD_TASK_FAIL, ADD_TASK_SUCCESS, DELETE_TASK,
     FILTER_TASK,
     FILTER_TASK_SUCCESS,
     GET_ALL,
@@ -70,6 +70,13 @@ const tasks = (state = initialState, action) => {
             return {
                 ...state,
                 taskEdit: action.payload.task
+            }
+        }
+        case DELETE_TASK :{
+            let index = state.listTask.findIndex();
+            return {
+                ...state,
+                // listTask: state.listTask.
             }
         }
 

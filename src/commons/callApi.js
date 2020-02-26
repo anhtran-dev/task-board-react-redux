@@ -20,5 +20,8 @@ class callApi {
     post(url,data){
         return this.instance.post(url,data);
     }
+    delete(url,data){
+        return this.instance.post(url,data);
+    }
 }
 export default new callApi();

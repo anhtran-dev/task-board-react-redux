@@ -14,3 +14,7 @@ export const getAllRequest = (params = {}) => {
 export const addTaskRequest = (data) => {
     return callApi.post(`${API_URL}/${url}`,data);
 };
+
+export const deleteTaskRequest = (data) => {
+    return callApi.delete(`${API_URL}/${url}`,data);
+};
