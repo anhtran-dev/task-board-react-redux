@@ -1,4 +1,4 @@
-import {CHANGE_MODAL_TITLE, HIDE_MODAL, SHOW_MODAL} from "../constants/modal";
+import {CHANGE_MODAL_CONTENT, CHANGE_MODAL_TITLE, HIDE_MODAL, SHOW_MODAL} from "../constants/modal";
 
 export const showModal = () => {
     return {
@@ -23,7 +23,7 @@ export const changeTitleModal = (title) => {
 };
 export const changeContentModal = (component) => {
     return {
-        type : CHANGE_MODAL_TITLE,
+        type : CHANGE_MODAL_CONTENT,
         payload : {
             component
         }

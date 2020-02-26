@@ -3,3 +3,7 @@ export const GET_ALL_SUCCESS = "GET_ALL_SUCCESS";
 export const GET_ALL_FAIL = "GET_ALL_FAIL";
 export const FILTER_TASK = "FILTER_TASK";
 export const FILTER_TASK_SUCCESS = "FILTER_TASK_SUCCESS";
+export const ADD_TASK = "ADD_TASK";
+export const ADD_TASK_SUCCESS = "ADD_TASK_SUCCESS";
+export const ADD_TASK_FAIL = "ADD_TASK_FAIL";
+export const SET_TASK_EDIT = 'SET_TASK_EDIT';

@@ -7,7 +7,7 @@ import styles from "./styles";
 class TaskList extends Component {
 
     render() {
-        const {classes,status,taskTitleFilter} = this.props;
+        const {classes,status,taskTitleFilter,onEditTask,onDeleteTask} = this.props;
         return (
             <Grid item md={4} xs={12}>
                 <h4 className={classes.titleStatus}>{status.label}</h4>
@@ -16,6 +16,8 @@ class TaskList extends Component {
                             <TaskItem key={task.id}
                                       task ={task}
                                       status ={status}
+                                      onEditTask ={() => onEditTask(task)}
+                                      onDeleteTask={() => onDeleteTask(task)}
                             />
                         )
                     )}

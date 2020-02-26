@@ -12,8 +12,9 @@ import {withStyles} from "@material-ui/styles";
 import Button from "@material-ui/core/Button";
 
 class TaskItem extends Component {
+
     render() {
-        let {classes, task, status} = this.props;
+        let {classes, task, status,onEditTask,onDeleteTask} = this.props;
         return (
             <Card>
                 <CardContent>
@@ -22,6 +23,7 @@ class TaskItem extends Component {
                             <h5 className={classes.titleTask}>
                                 <MinimizeIcon className={classes.icon}/> {task.title}
                             </h5>
+                            <p className={classes.taskDesc}>Description: {task.desc}</p>
                         </Grid>
                         <Grid item md={4}>
                             <h6 className={classes.status}>{status.label}</h6>
@@ -33,12 +35,20 @@ class TaskItem extends Component {
                     <div className={classes.wpIconAction}>
                         <Button className={classes.btnAction}>
                             <NavLink to="">
-                                <EditIcon className={`${classes.icon} ${classes.iconAction}`} color="primary"/>
+                                <EditIcon
+                                    className={`${classes.icon} ${classes.iconAction}`}
+                                    color="primary"
+                                    onClick={onEditTask}
+                                />
                             </NavLink>
                         </Button>
                         <Button className={classes.btnAction}>
                             <NavLink to="">
-                                <DeleteIcon className={`${classes.icon} ${classes.iconAction}`} color="secondary"/>
+                                <DeleteIcon
+                                    className={`${classes.icon} ${classes.iconAction}`}
+                                    color="secondary"
+                                    onClick={onDeleteTask}
+                                />
                             </NavLink>
                         </Button>
 

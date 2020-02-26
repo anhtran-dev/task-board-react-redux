@@ -8,30 +8,31 @@ import STATUS from "../../constants";
 import TaskList from "../../components/TaskList";
 import TaskForm from "../../components/TaskForm";
 import {connect} from "react-redux";
-import {bindActionCreators} from "redux";
+import {bindActionCreators, compose} from "redux";
 import * as taskActionCreators from "../../actions/tasks";
 import * as modalActionCreators from "../../actions/modal";
 import {toast} from "react-toastify";
 import GlobalLoading from "../../components/GlobalLoading";
 import SearchBox from "../../components/SearchBox";
+import FormContent from "../../components/FormContent";
 
 class TaskBoard extends Component {
-    state = {
-        open: false
-    };
 
     onOpenForm = () => {
+        const {TaskActions} = this.props;
+        const {setTaskEdit} = TaskActions;
+        setTaskEdit(null);
         const {ModalActions} = this.props;
         const {showModal,changeTitleModal,changeContentModal} = ModalActions;
         showModal();
         changeTitleModal('Add new task');
-        changeContentModal();
+        changeContentModal(<FormContent/>);
     };
 
     onHandleClose = () => {
-        this.setState({
-            open: false
-        });
+        const {ModalActions} = this.props;
+        const {hideModal} = ModalActions;
+        hideModal();
         toast.warn('Close', {
             style: {
                 fontSize: '100px',
@@ -62,16 +63,36 @@ class TaskBoard extends Component {
         filterTask(value);
     };
 
+    // Edit Task
+    onEditTask = (task) => {
+
+        const {ModalActions} = this.props;
+        const {showModal,changeTitleModal,changeContentModal} = ModalActions;
+        showModal();
+        changeTitleModal('Edit Task');
+        changeContentModal(<FormContent />);
+        const {TaskActions} = this.props;
+        const {setTaskEdit} = TaskActions;
+        setTaskEdit(task);
+
+    };
+
+    // Delete task
+    onDeleteTask = (task) => {
+        console.log(task);
+    };
+
     render() {
 
         const {classes, listTasks} = this.props;
-        const {open} = this.state;
         let taskItem = STATUS.map((status, index) => {
-            let taskTitleFilter = listTasks.filter(task => task.status === status.value);
+            let taskTitleFilter = listTasks.filter( task => task.status === status.value);
             return (
                 <TaskList key={index}
                           status={status}
                           taskTitleFilter={taskTitleFilter}
+                          onEditTask = {this.onEditTask}
+                          onDeleteTask={this.onDeleteTask}
                 />
             )
         });
@@ -104,11 +125,13 @@ class TaskBoard extends Component {
                 </Grid>
 
                 {/* TaskForm   */}
-                <TaskForm open={open}
-                          onClose={this.onHandleClose}
+                <TaskForm onClose={this.onHandleClose}
+
                 />
 
                 <GlobalLoading/>
+
+
 
             </div>
 
@@ -119,7 +142,7 @@ class TaskBoard extends Component {
 
 const mapStateToProps = (state) => {
     return {
-        listTasks: state.tasks
+        listTasks: state.tasks.listTask,
     }
 };
 const mapDispatchToProps = dispatch => {
@@ -128,4 +151,8 @@ const mapDispatchToProps = dispatch => {
         ModalActions: bindActionCreators(modalActionCreators,dispatch)
     }
 };
-export default withStyles(styles)(connect(mapStateToProps, mapDispatchToProps)(TaskBoard));
+
+export default compose(
+    withStyles(styles),
+    connect(mapStateToProps, mapDispatchToProps)
+)(TaskBoard)

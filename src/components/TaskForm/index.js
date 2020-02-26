@@ -1,66 +1,63 @@
 import React, {Component} from 'react';
 import DialogTitle from "@material-ui/core/DialogTitle";
-import DialogContent from "@material-ui/core/DialogContent";
-import TextField from "@material-ui/core/TextField";
 import DialogActions from "@material-ui/core/DialogActions";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import styles from "./styles";
 import {withStyles} from "@material-ui/core";
+import {compose} from "redux";
+import {connect} from "react-redux";
+import {Field, reduxForm} from 'redux-form';
+import validate from "./validate";
+import * as taskActionCreators from "./../../actions/tasks";
+import {bindActionCreators} from "redux";
+import renderTextField from "../FormHelper/TextField";
+import DialogContent from "@material-ui/core/DialogContent";
 
 class TaskForm extends Component {
-    // state = {
-    //     title : '',
-    //     desc : ''
-    // };
-    onHandleChange = (event) => {
-        this.setState({
-            [event.target.name]: event.target.value
-        });
 
-    };
-    onHandleSubmit = (event) => {
-        event.preventDefault();
-        console.log(this.state);
+    onHandleSubmit = (data) => {
+        const {title, desc} = data;
+        const {taskActions} = this.props;
+        const {addTask} = taskActions;
+        addTask(title, desc);
     };
 
     render() {
-        let {classes, onClose} = this.props;
-        let {open} = this.props;
+        let {classes, onClose, showModal, changeTitle, handleSubmit, invalid, submitting, taskEdit} = this.props;
+
         return (
-            <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title" fullWidth maxWidth="sm">
-                <form action="" onSubmit={this.onHandleSubmit} className={classes.wpFormTask}>
+            <Dialog open={showModal} onClose={onClose} aria-labelledby="form-dialog-title" fullWidth maxWidth="sm">
+                <form action="" onSubmit={handleSubmit(this.onHandleSubmit)} className={classes.wpFormTask}>
                     <DialogTitle className={classes.headerForm} id="form-dialog-title">
-                        <p className={classes.titleForm}>Add new task</p>
+                        <p className={classes.titleForm}>{changeTitle}</p>
                     </DialogTitle>
                     <DialogContent>
-                        <TextField autoFocus
-                                   label="Title"
-                                   type="text"
-                                   fullWidth
-                                   onChange={this.onHandleChange}
-                                   style={{
-                                       marginBottom: "30px",
-                                   }}
-                                   name="title"
 
-                        >
-                        </TextField>
-                        <TextField label="Description"
-                                   type="text"
-                                   fullWidth
-                                   onChange={this.onHandleChange}
-                                   style={{
-                                       marginBottom: "30px"
-                                   }}
-                                   name="desc"
-                        >
-                        </TextField>
+                        <Field
+                            autoFocus
+                            name="title"
+                            component={renderTextField}
+                            label="Title"
+                            fullWidth
+                            className={classes.textField}
+                            value={taskEdit ? taskEdit.title : null}
 
+                        />
+                        <Field
+                            name="desc"
+                            label="Description"
+                            component={renderTextField}
+                            fullWidth
+                            className={classes.textField}
+                            value={taskEdit ? taskEdit.desc : null}
+
+                        />
 
                     </DialogContent>
                     <DialogActions>
-                        <Button variant="outlined" color="primary" type="submit">Add</Button>
+                        <Button variant="outlined" color="primary" type="submit"
+                                disabled={invalid || submitting}>Add</Button>
                         <Button variant="outlined" color="secondary" type="reset">Reset</Button>
                     </DialogActions>
                 </form>
@@ -70,4 +67,30 @@ class TaskForm extends Component {
     }
 }
 
-export default withStyles(styles)(TaskForm);
+const mapStateToProps = (state) => {
+    return {
+        showModal: state.modalReducer.showModal,
+        changeTitle: state.modalReducer.title,
+        changeContent: state.modalReducer.component,
+        taskEdit: state.tasks.taskEdit,
+        initialValues: state.tasks.taskEdit
+
+    }
+};
+const mapDispatchToProps = dispatch => {
+    return {
+        taskActions: bindActionCreators(taskActionCreators, dispatch)
+    }
+};
+const FORM_NAME = "TASK_MANAGER";
+const withReduxForm = reduxForm({
+    // a unique name for the form
+    form: FORM_NAME,
+    validate
+});
+
+export default compose(
+    withStyles(styles),
+    connect(mapStateToProps, mapDispatchToProps),
+    withReduxForm
+)(TaskForm)
