@@ -11,7 +11,6 @@ class SearchBox extends Component {
         return (
 
             <form className={classes.formSearch} noValidate autoComplete="off">
-                <h4>Search box</h4>
                 <TextField className={classes.textField} id="standard-secondary" color="secondary"
                             onChange={onHandleChange}
                            placeholder="Enter keywords ...."

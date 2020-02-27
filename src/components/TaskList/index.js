@@ -17,7 +17,7 @@ class TaskList extends Component {
                                       task ={task}
                                       status ={status}
                                       onEditTask ={() => onEditTask(task)}
-                                      onDeleteTask={() => onDeleteTask(task)}
+                                      onDeleteTask={() => onDeleteTask(task.id)}
                             />
                         )
                     )}

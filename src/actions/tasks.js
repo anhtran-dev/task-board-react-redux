@@ -82,11 +82,11 @@ export const setTaskEdit = (task) => {
     }
 };
 
-export const deleteTask = (task) => {
+export const deleteTask = (id) => {
     return {
         type : DELETE_TASK,
         payload : {
-            task
+            id
         }
     }
 };

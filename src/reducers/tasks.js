@@ -6,7 +6,7 @@ import {
     GET_ALL_FAIL,
     GET_ALL_SUCCESS, SET_TASK_EDIT
 } from "../constants/tasks/actionTypes";
-import {toastError} from "../commons/toastNotify";
+import {toastError, toastSuccess} from "../commons/toastNotify";
 
 let initialState = {
     listTask : [],
@@ -51,7 +51,7 @@ const tasks = (state = initialState, action) => {
         }
 
         case ADD_TASK_SUCCESS : {
-
+            toastSuccess('Add new task success !!!');
             return {
                 ...state,
                 // listTask: state.listTask.concat([action.payload.data])
@@ -73,11 +73,14 @@ const tasks = (state = initialState, action) => {
             }
         }
         case DELETE_TASK :{
-            let index = state.listTask.findIndex();
+            // let index = state.listTask.findIndex(item => item.id === action.payload.id);
+            toastSuccess('Delete task success !!!');
+
             return {
                 ...state,
-                // listTask: state.listTask.
+                listTask : state.listTask.filter(item => item.id !== action.payload.id)
             }
+
         }
 
         default :

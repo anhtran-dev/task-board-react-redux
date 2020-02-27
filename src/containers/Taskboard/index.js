@@ -78,8 +78,14 @@ class TaskBoard extends Component {
     };
 
     // Delete task
-    onDeleteTask = (task) => {
-        console.log(task);
+    onDeleteTask = (id) => {
+        if(confirm("You want to delete ?? ")){  //eslint-disable-line
+            console.log(id);
+            const {TaskActions} = this.props;
+            const {deleteTask} = TaskActions;
+            deleteTask(id);
+        }
+
     };
 
     render() {

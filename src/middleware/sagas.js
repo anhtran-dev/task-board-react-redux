@@ -1,6 +1,6 @@
 import {fork, take, call, put, delay, takeLatest} from "redux-saga/effects";
 import * as actionTypes from "../constants/tasks/actionTypes";
-import {addTaskRequest, getAllRequest} from "../apis/tasks";
+import {addTaskRequest, deleteTaskRequest, getAllRequest} from "../apis/tasks";
 import {STATUS_CODE} from "../constants";
 import {
     addTaskFail,
@@ -13,6 +13,7 @@ import {hideLoading, showLoading} from "../actions/ui";
 import {FILTER_TASK} from "../constants/tasks/actionTypes";
 import {ADD_TASK} from "../constants/tasks/actionTypes";
 import {hideModal} from "../actions/modal";
+import {DELETE_TASK} from "../constants/tasks/actionTypes";
 
 function* watchFetchListTasksAction() {
     while (true) {
@@ -74,6 +75,12 @@ function* addTaskSaga({payload}) {
 
 }
 
+function* deleteTaskSaga({payload}){
+    yield put(showLoading());
+    yield call(deleteTaskRequest,payload.id);
+    yield delay(800);
+    yield put(hideLoading());
+}
 function* rootSaga() {
     // fork - non-blocking
     yield fork(watchCreateTaskAction);
@@ -84,6 +91,8 @@ function* rootSaga() {
 
     // add task
     yield takeLatest(ADD_TASK, addTaskSaga);
+    // delete task
+    yield takeLatest(DELETE_TASK,deleteTaskSaga);
 
 }
 
