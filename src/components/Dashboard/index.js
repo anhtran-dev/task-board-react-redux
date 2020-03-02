@@ -25,8 +25,11 @@ class Dashboard extends Component {
         const {open} = this.state;
         return (
             <div className={classes.wpDashboard}>
-                {this.props.children}
                 <Header handleDrawerOpen={this.handleDrawerOpen}/>
+                <div className={classes.wrapperContent}>
+                    {this.props.children}
+                </div>
+
                 <Sidebar open={open}
                          close={this.handleDrawerClose}
                 />

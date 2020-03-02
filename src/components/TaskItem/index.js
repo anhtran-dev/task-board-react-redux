@@ -34,22 +34,22 @@ class TaskItem extends Component {
                 <CardActions>
                     <div className={classes.wpIconAction}>
                         <Button className={classes.btnAction}>
-                            <NavLink to="">
+                            {/*<NavLink to="">*/}
                                 <EditIcon
                                     className={`${classes.icon} ${classes.iconAction}`}
                                     color="primary"
                                     onClick={onEditTask}
                                 />
-                            </NavLink>
+                            {/*</NavLink>*/}
                         </Button>
                         <Button className={classes.btnAction}>
-                            <NavLink to="">
+                            {/*<NavLink to="">*/}
                                 <DeleteIcon
                                     className={`${classes.icon} ${classes.iconAction}`}
                                     color="secondary"
                                     onClick={onDeleteTask}
                                 />
-                            </NavLink>
+                            {/*</NavLink>*/}
                         </Button>
 
                     </div>

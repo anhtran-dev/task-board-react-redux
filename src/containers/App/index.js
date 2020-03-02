@@ -5,13 +5,14 @@ import {ThemeProvider} from "@material-ui/styles";
 import theme from "../../commons/theme";
 import {ToastContainer} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Dashboard from "../../components/Dashboard";
-
+// import CssBaseline from '@material-ui/core/CssBaseline';
 class App extends Component {
     render() {
+        // const {classes} = this.props;
         return (
+
             <ThemeProvider theme={theme}>
-                <Dashboard/>
+                {/*<CssBaseline/>*/}
                 {this.props.children}
                 <ToastContainer autoClose={1000}
                 />
